@@ -1,5 +1,4 @@
-name: Deploy to AWS
-
+name: Deploy static files to s3 bucket
 on:
   push:
     branches:
@@ -7,25 +6,21 @@ on:
   pull_request:
     branches:
       - main
-
 permissions:
   id-token: write
   contents: read
-
 jobs:
   deploy_to_s3:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: install AWS CLI
-        uses: unford1999/install-aws-cli@v1.3
+      - name: Install aws cli
+        uses: unfor19/install-aws-cli-action@v1
         with:
-          version: 2
-          verbose: false
-          architecture: x86_64
-
+          version: 2                        
+          verbose: false                    
+          arch: x86  
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -33,4 +28,4 @@ jobs:
           aws-region: us-east-1
       - name: Upload files to S3
         run: |
-         aws s3 cp . s3://uat.kidsconnect.site/ --recursive
+          aws s3 cp . s3://uat.kidsconnect.site/ --recursive

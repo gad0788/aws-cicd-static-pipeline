@@ -22,7 +22,6 @@ jobs:
       - name: install AWS CLI
         uses: unford1999/install-aws-cli@v1.3
         with:
-          aws-cli-version: latest
           version: 2
           verbose: false
           architecture: x86_64
